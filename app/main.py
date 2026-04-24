@@ -58,3 +58,4 @@ async def analyze(file: UploadFile = File(...)):
                 os.remove(path)
         except Exception:
             pass
+

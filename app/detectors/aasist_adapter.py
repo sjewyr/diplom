@@ -67,5 +67,5 @@ class AASISTDetector(Detector):
         # batch_out[:, 1] как CM-скор (выше = bonafide).
         # → output[:, 0] = spoof, output[:, 1] = bonafide.
         probs = torch.softmax(output, dim=1)
-        spoof_prob = float(probs[0, 0].detach().cpu().item())
+        spoof_prob = float(probs[0, 1].detach().cpu().item())
         return float(max(0.0, min(1.0, spoof_prob)))
