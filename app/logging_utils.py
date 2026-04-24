@@ -18,7 +18,9 @@ CSV_HEADER = [
 
 
 def append_experiment_row(csv_path: str, row: Dict[str, Any]) -> None:
-    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    dirname = os.path.dirname(csv_path)
+    if dirname:
+        os.makedirs(dirname, exist_ok=True)
     write_header = not os.path.exists(csv_path)
 
     with open(csv_path, "a", newline="", encoding="utf-8") as f:
