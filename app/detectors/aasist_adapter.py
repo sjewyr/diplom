@@ -62,8 +62,10 @@ class AASISTDetector(Detector):
         with torch.inference_mode():
             _last_hidden, output = self.model(x)  # output shape: (batch, 2)
 
-        # output[:, 1] = spoof logit, output[:, 0] = bonafide logit
-        # Apply softmax to get probability of spoof
+        # AASIST label convention (см. external_models/aasist/data_utils.py:
+        # `1 if label == "bonafide" else 0`) и produce_evaluation_file берёт
+        # batch_out[:, 1] как CM-скор (выше = bonafide).
+        # → output[:, 0] = spoof, output[:, 1] = bonafide.
         probs = torch.softmax(output, dim=1)
-        spoof_prob = float(probs[0, 1].detach().cpu().item())
+        spoof_prob = float(probs[0, 0].detach().cpu().item())
         return float(max(0.0, min(1.0, spoof_prob)))
