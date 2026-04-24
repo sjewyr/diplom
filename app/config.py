@@ -26,7 +26,7 @@ class PostprocessConfig:
 @dataclass(frozen=True)
 class EnsembleConfig:
     method: AggMethod = "mean"
-    detector_ids: List[str] = field(default_factory=lambda: ["simple_energy", "simple_spectral", "aasist"])
+    detector_ids: List[str] = field(default_factory=lambda: ["simple_energy", "simple_spectral", "aasist", "rawnet2"])
     weights: Optional[Dict[str, float]] = None
 
 
